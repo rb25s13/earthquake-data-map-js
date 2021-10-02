@@ -1,4 +1,3 @@
-# gitignore
+# Visualizing Data with Leaflet
 
-This respository is used for cloning .gitignore to future repos
-
+Visualize their data to allow them to better educate the public and other government organizations (and hopefully secure more funding) on issues facing our planet.
