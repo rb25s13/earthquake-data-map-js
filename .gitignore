@@ -1,4 +1,5 @@
-/static/js/config.js
+# api key file
+config.js
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
