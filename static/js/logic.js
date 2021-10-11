@@ -2,10 +2,10 @@ let queryUrl = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_mo
 
 let platesUrl = 'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_plates.json';
 
-let myMap = L.map('map', {
-    center: [37.09, -95.71],
-    zoom: 5,
-  });
+// let myMap = L.map('map', {
+//     center: [37.09, -95.71],
+//     zoom: 5,
+//   });
 
 let mapStyle = {
     color: "yellow",
@@ -14,19 +14,76 @@ let mapStyle = {
     weight: 1.5
 };
 
-d3.json(platesUrl).then(function(data) {
-    L.geoJson(data, {
+function tecPlates(tpData) {
+    L.geoJson(tpData, {
         style: mapStyle
     }).addTo(myMap);
-});
+};
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(myMap);
+let tpl = d3.json(platesUrl).then(tecPlates);
+
+function createMap(quakesLastMonth) {
+
+    let streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+    let topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+    });
+  
+    let tecPlatesLines = L.layerGroup(tpl);
+
+    let baseMaps = {
+      "Street Map": streetmap,
+      "Topographic Map": topo
+    };
+  
+    let overlayMaps = {
+      'Earthquakes': quakesLastMonth,
+    //   'Tectonic Plates': tecPlatesLines
+    };
+  
+
+    let myMap = L.map('map', {
+        center: [37.09, -95.71],
+        zoom: 5,
+        layers: [topo, quakesLastMonth]
+    });
+  
+    L.control.layers(baseMaps, overlayMaps, {
+      collapsed: false
+    }).addTo(myMap);
+
+    var legend = L.control({ position: "bottomright" });
+    legend.onAdd = function() {
+    var div = L.DomUtil.create("div", "info legend");
+
+    let categories = ['-10-10','10-30','30-50','50-70','70-90', '90+'];
+    let colors = ['#a3f600','#dcf400','#f7db11','#fdb72a','#fca35d','#ff5f65'];
+    var labels = [];
+
+    var legendInfo = "<p>Depth</p>" +
+        "<div class=\"labels\">" +
+        "</div>";
+
+    div.innerHTML = legendInfo;
+
+    categories.forEach(function(category, index) {
+        labels.push("<li><div style=\"background-color: " + colors[index] + "\"></div>&nbsp;&nbsp;" + categories[index] + "</li>");
+    });
+
+    div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+    return div;
+    };
+
+    legend.addTo(myMap);
+};
 
 
+function quakeCircles(response) {
 
-d3.json(queryUrl).then(function(response) {
+    let quakeMarkers = [];
 
     for (var i = 0; i < response.features.length; i++) {
         let mag = response.features[i].properties.mag;
@@ -50,19 +107,25 @@ d3.json(queryUrl).then(function(response) {
         } else {
           color = '#ff5f65';
         }
-      
-        // lists for the legend
-        categories = ['-10-10','10-30','30-50','50-70','70-90'];
-        colors = ['#a3f600','#dcf400','#f7db11','#fdb72a','#fca35d','#ff5f65'];
-        props = [categories, colors];
-        
 
-        L.circle(location, {
-          fillOpacity: depth,
-          color: 'rgba(0,0,0,0.1)',
-          fillColor: color,
-          radius: Math.sqrt(mag) * 20000
-        }).bindPopup(`<h3>${response.features[i].properties.place}</h3><hr><p>${new Date(response.features[i].properties.time)}</p>`).addTo(myMap);
+        let quakeMarker = L.circle(location, {
+                                                fillOpacity: depth,
+                                                color: 'rgba(0,0,0,0.1)',
+                                                fillColor: color,
+                                                radius: Math.sqrt(mag) * 27500
+        }).bindPopup(`<h3>${response.features[i].properties.place}</h3><hr><p>${new Date(response.features[i].properties.time)}</p>`);
+
+        quakeMarkers.push(quakeMarker);
     }
 
-  });
+    createMap(L.layerGroup(quakeMarkers));
+
+};
+
+d3.json(queryUrl).then(quakeCircles);
+
+// let tpl = d3.json(platesUrl).then(tecPlates);
+
+
+// d3.json(platesUrl).then(tecPlates);
+
