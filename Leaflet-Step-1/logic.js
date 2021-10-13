@@ -21,7 +21,7 @@ legend.onAdd = () => {
     let categories = ['-10-10','10-30','30-50','50-70','70-90', '90+'];
     let colors = ['#a3f600','#dcf400','#f7db11','#fdb72a','#fca35d','#ff5f65'];
     let labels = [];
-    categories.forEach((category, index) => {
+    categories.forEach((a, index) => {
         labels.push("<li><div style=\"background-color: " + colors[index] + "\"></div>&nbsp;&nbsp;" + categories[index] + "</li>");
     });
     div.innerHTML += "<ul>" + labels.join("") + "</ul>";
@@ -36,6 +36,8 @@ d3.json(queryUrl).then(response => {
         let location = response.features[i].geometry;
         let depth = location.coordinates[2]
         location = [location.coordinates[1], location.coordinates[0]];
+        let date = new Date(response.features[i].properties.time).toLocaleDateString("en-US")
+        let time = new Date(response.features[i].properties.time).toLocaleTimeString("en-US")
         let color = '';
         if (depth <= 10) {
             color = '#a3f600';
@@ -54,7 +56,8 @@ d3.json(queryUrl).then(response => {
             fillOpacity: depth,
             color: 'rgba(0,0,0,0.1)',
             fillColor: color,
-            radius: Math.sqrt(mag) * 20000
-        }).bindPopup(`<h5>${response.features[i].properties.place}</h5><hr><p>${new Date(response.features[i].properties.time)}</p>`).addTo(myMap);
+            radius: Math.sqrt(mag) * 27500
+        }).bindPopup(`<h5>${response.features[i].properties.place}</h5>${time} - ${date}<hr><p>
+        <b>Magnitude:</b> ${mag}<br/><b>Depth:</b> ${depth}</p>`).addTo(myMap);
     }
 }); 

@@ -42,6 +42,8 @@ d3.json(queryUrl).then(response => {
         let location = response.features[i].geometry;
         let depth = location.coordinates[2]
         location = [location.coordinates[1], location.coordinates[0]];
+        let date = new Date(response.features[i].properties.time).toLocaleDateString("en-US")
+        let time = new Date(response.features[i].properties.time).toLocaleTimeString("en-US")
         let color = '';
         if (depth <= 10) {
           color = '#a3f600';
@@ -61,7 +63,8 @@ d3.json(queryUrl).then(response => {
                             color: 'rgba(0,0,0,0.1)',
                             fillColor: color,
                             radius: Math.sqrt(mag) * 27500
-        }).bindPopup(`<h3>${response.features[i].properties.place}</h3><hr><p>${new Date(response.features[i].properties.time)}</p>`).addTo(quakeMarkersLayer);
+        }).bindPopup(`<h5>${response.features[i].properties.place}</h5>${time} - ${date}<hr><p>
+        <b>Magnitude:</b> ${mag}<br/><b>Depth:</b> ${depth}</p>`).addTo(quakeMarkersLayer);
     }
     quakeMarkersLayer.addTo(myMap);
 });
@@ -70,10 +73,10 @@ legend.onAdd = () => {
     let div = L.DomUtil.create("div", "info legend");
     let categories = ['-10-10','10-30','30-50','50-70','70-90', '90+'];
     let colors = ['#a3f600','#dcf400','#f7db11','#fdb72a','#fca35d','#ff5f65'];
-    var labels = [];
-    var legendInfo = "<p>Depth</p>" + "<div class=\"labels\">" + "</div>";
+    let labels = [];
+    let legendInfo = "<p>Depth</p>" + "<div class=\"labels\">" + "</div>";
     div.innerHTML = legendInfo;
-    categories.forEach(function(category, index) {
+    categories.forEach((a, index) => {
         labels.push("<li><div style=\"background-color: " + colors[index] + "\"></div>&nbsp;&nbsp;" + categories[index] + "</li>");
     });
     div.innerHTML += "<ul>" + labels.join("") + "</ul>";
