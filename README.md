@@ -14,6 +14,7 @@ Tectonic Plates: <a target="_blank" href="https://github.com/fraxen/tectonicplat
         /static - folders for js and css
                 /css - style.css for custom styles
                 /js - logic.js: code for preview using openstreetmap w/o mapbox
+                /img - screenshots for readme
         /Leaflet-Step-1 - mapbox map with Earthquake Markers
         /Leaflet-Step-2 - same as above + layer control and Tectonic Plate Lines
 
@@ -25,17 +26,17 @@ NOTE: `config.js` file containing mapbox API_KEY is needed to generate the maps 
 <br />
 
 ## Preview: Openstreetmap w/o Mapbox - no api needed
-<img src="screenshot.png" />
+<img src="./static/img/screenshot.png" />
 
 ## Step-1: All Earthquakes in the Last Month using Mapbox
 - Color of cirle is based on the depth of the earthquake
 - Radius of circle is based on the magnitude of the earthquake
 
-<img src="Step-1.png" />
+<img src="./static/img/Step-1.png" />
 
 ## Step-2: Step-1 with extra features
 - Added Layer control
 - Added different base maps to choose from
 - Added Tectonic Plates layer
 
-<img src="Step-2.png" />
+<img src="./static/img/Step-2.png" />
