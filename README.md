@@ -8,6 +8,14 @@ Earthquakes: <a target="_blank" href="https://earthquake.usgs.gov/earthquakes/fe
 
 Tectonic Plates: <a target="_blank" href="https://github.com/fraxen/tectonicplates">https://github.com/fraxen/tectonicplates</a>
 
+### Built With:
+
+* [Leaflet.js](https://leafletjs.com/)
+* [d3.js](https://d3js.org/)
+* [Bootstrap](https://getbootstrap.com)
+* [OpenStreetMap](https://www.openstreetmap.org/)
+* [Mapbox](https://www.mapbox.com/)
+
 
 ### Contents:
 
@@ -23,9 +31,8 @@ NOTE: `config.js` file containing mapbox API_KEY is needed to generate the maps 
         // API key
         const API_KEY = 'API key';
 
-<br />
 
-## Preview: Openstreetmap w/o Mapbox - no api needed
+## Preview: OpenStreetMap w/o Mapbox - no api needed
 <img src="./static/img/screenshot.png" />
 
 ## Step-1: All Earthquakes in the Last Month using Mapbox
