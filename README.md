@@ -3,18 +3,33 @@
 Visualize Earthquake data to allow USGS to better educate the public and other government organizations (and hopefully secure more funding) on issues facing our planet.
 <br /><br />
 <b><center>View preview here: <a target="_blank" href="https://rb25s13.github.io/leaflet-challenge/">https://rb25s13.github.io/leaflet-challenge/</a></center></b><br />
+
+__________________
+<details>
+<summary>Tools, Languages, & Libraries Utilized</summary>
+<li>d3</li>
+<li>Leaflet</li>
+<li>jQuery</li>
+<li>Bootstrap</li>
+<li>OpenStreetMap API</li>
+<li>Mapbox API</li>
+<li>HTML/CSS</li>
+<li>VS Code</li>
+</details>
+
+
 ### Sources:
 Earthquakes: <a target="_blank" href="https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php">https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php</a>
 
 Tectonic Plates: <a target="_blank" href="https://github.com/fraxen/tectonicplates">https://github.com/fraxen/tectonicplates</a>
 
-### Built With:
+<!-- ### Built With:
 
 * [Leaflet.js](https://leafletjs.com/)
 * [d3.js](https://d3js.org/)
 * [Bootstrap](https://getbootstrap.com)
 * [OpenStreetMap](https://www.openstreetmap.org/)
-* [Mapbox](https://www.mapbox.com/)
+* [Mapbox](https://www.mapbox.com/) -->
 
 
 ### Contents:
