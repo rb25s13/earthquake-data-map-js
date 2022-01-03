@@ -2,7 +2,7 @@
 
 Visualize Earthquake data to allow USGS to better educate the public and other government organizations (and hopefully secure more funding) on issues facing our planet.
 <br /><br />
-<b><center>View preview here: <a target="_blank" href="https://rb25s13.github.io/leaflet-challenge/">https://rb25s13.github.io/leaflet-challenge/</a></center></b><br />
+<b><center>View preview here: <a target="_blank" href="https://rb25s13.github.io/earthquake-data-map-js/">https://rb25s13.github.io/earthquake-data-map-js/</a></center></b><br />
 
 __________________
 <details>
